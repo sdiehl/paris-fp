@@ -65,15 +65,23 @@ $ brew install haskell-stack
 
 **LLVM**
 
-Le compilateur LLVM toolchain peut être installé via la formule d'infusion:
+Le compilateur LLVM toolchain peut être installé via la brew formule:
 
 ```bash
 $ brew install llvm38
 ```
 
+
+Vérifier
+
+```bash
+$ llvm-config --version
+3.8
+```
+
 **Z3**
 
-Le démonstrateur Z3 peut être installé via la formule d'infusion:
+Le démonstrateur Z3 peut être installé via la brew formule:
 
 ```bash
 $ brew install z3
