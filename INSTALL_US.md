@@ -75,6 +75,7 @@ Verify the install:
 
 ```bash
 $ llvm-config --ldflags
+-L/usr/local/Cellar/llvm/3.9.0/lib -Wl,-search_paths_first -Wl,-headerpad_max_install_names
 ```
 
 **Z3**
