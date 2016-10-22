@@ -4,8 +4,10 @@ packages:
 extra-deps:
 - repline-0.1.4.0
 - protolude-0.1.8
-- llvm-general-3.5.1.0
-- llvm-general-pure-3.5.0.0
+- llvm-general-3.5.1.2
+- llvm-general-pure-3.5.1.0
 - z3-4.1.0
 flags: {}
 extra-package-dbs: []
+extra-lib-dirs:
+- /usr/local/opt/libffi/lib/
