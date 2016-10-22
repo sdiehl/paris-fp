@@ -22,7 +22,7 @@ Le compilateur LLVM toolchain peut être installé via le gestionnaire de paquet
 du système. Sur Debian Variantes:
 
 ```bash
-$ sudo apt-get install llvm 3.8 llvm3.8-dev
+$ sudo apt-get install llvm3.5 llvm3.5-dev
 ```
 
 Vérifier
@@ -68,15 +68,14 @@ $ brew install haskell-stack
 Le compilateur LLVM toolchain peut être installé via la brew formule:
 
 ```bash
-$ brew install llvm llvm-dev
+$ brew install libffi llvm35
 ```
-
 
 Vérifier
 
 ```bash
-$ llvm-config --version
-3.8
+$ llvm-config --ldflags
+-L/usr/local/Cellar/llvm/3.9.0/lib -Wl,-search_paths_first -Wl,-headerpad_max_install_names
 ```
 
 **Z3**
