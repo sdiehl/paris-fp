@@ -55,7 +55,7 @@ Mac OSX
 
 Il existe plusieurs façons d'installer Stack sur OSX:
 
-[Graphical Installer](https://www.stackage.org/stack/osx-x86_64)
+[Installateur graphique](https://www.stackage.org/stack/osx-x86_64)
 
 ou
 
