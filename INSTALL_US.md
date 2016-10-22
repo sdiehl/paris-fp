@@ -22,7 +22,7 @@ The LLVM compiler toolchain can be installed via system package manager. On
 Debian variants:
 
 ```bash
-$ sudo apt-get install llvm 3.8 llvm3.8-dev
+$ sudo apt-get install llvm3.5 llvm3.5-dev
 ```
 
 Verify the install:
@@ -68,7 +68,13 @@ $ brew install haskell-stack
 The LLVM compiler toolchain can be installed via brew formula:
 
 ```bash
-$ brew install llvm38
+$ brew install libffi llvm35
+```
+
+Verify the install:
+
+```bash
+$ llvm-config --ldflags
 ```
 
 **Z3**

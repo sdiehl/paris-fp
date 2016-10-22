@@ -68,7 +68,7 @@ $ brew install haskell-stack
 Le compilateur LLVM toolchain peut être installé via la brew formule:
 
 ```bash
-$ brew install llvm38
+$ brew install llvm llvm-dev
 ```
 
 
