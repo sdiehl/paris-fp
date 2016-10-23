@@ -104,3 +104,12 @@ $ cd paris-fp
 $ stack setup
 $ stack build
 ```
+
+enfin lancez le script petit 
+```bash
+$ ./petit
+...
+Environnement est bon!
+```
+
+Si vous voyez ce message, tout marche !
