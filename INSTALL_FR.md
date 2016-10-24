@@ -49,7 +49,7 @@ Vérifier
 $ z3 -version
 Z3 version 4.4.1
 ```
-Il faut également installé libedit.
+Il faut également installer libedit.
 
 ```bash
 $ sudo apt-get install libedit-dev
