@@ -2,12 +2,8 @@ module Codegen where
 
 import Protolude hiding (local, void, local, one, zero)
 import Data.String (String, IsString(..))
-import Data.Word
-import Data.Function
 import qualified Data.Map as Map
 import qualified Data.List as List
-
-import Control.Applicative
 
 import LLVM.General.AST
 import LLVM.General.AST.Type

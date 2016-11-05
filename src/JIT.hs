@@ -55,12 +55,15 @@ runJIT mod = do
             Left err -> putStrLn err
             Right () -> pure ()
 
-          -- Optimization Pass
+          -- Optimization Passes
           {-runPassManager pm m-}
           optmod <- moduleAST m
+
+          -- Dump assembly code
           s <- moduleLLVMAssembly m
           putStrLn s
 
+          -- JIT compile and execute inside of Haskell
           EE.withModuleInEngine executionEngine m $ \ee -> do
             mainfn <- EE.getFunction ee (AST.Name "main")
             case mainfn of

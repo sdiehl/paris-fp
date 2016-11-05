@@ -17,13 +17,12 @@ import Data.List (union, delete)
 
 type Name = LText
 
-data Expr
-  = Var Name
-  | App Expr Expr
-  | Lam [Name] Expr
-  | Let Name Expr Expr
+data Expr a
+  = Var a
+  | App (Expr a) (Expr a)
+  | Lam [a] (Expr a)
   | Lit Literal
-  | If Expr Expr Expr
+  | If (Expr a) (Expr a) (Expr a)
   | Prim Prim
   deriving (Show, Eq, Ord)
 
@@ -39,27 +38,26 @@ data Prim
   | Eql
   deriving (Eq, Ord, Show)
 
-data Decl
-  = FunDecl Name [Name] Expr
+data Decl a
+  = FunDecl a [a] (Expr a)
   deriving (Eq, Show)
 
-data Program = Program [Decl]
+data Program a = Program [Decl a]
   deriving (Show, Eq)
 
-mkApp :: Expr -> [Name] -> Expr
+mkApp :: Expr a -> [a] -> Expr a
 mkApp e vs = foldl' App e (fmap Var vs)
 
 remove :: Eq a => [a] -> [a] -> [a]
 remove = foldr (filter . (/=))
 
-globals :: Program -> [Name]
+globals :: Eq a => Program a -> [a]
 globals (Program decls) = [nm | FunDecl nm _ _ <- decls]
 
-fv :: Expr -> [Name]
+fv :: Eq a => Expr a -> [a]
 fv (Var x)       = [x]
 fv (Lam xs e)    = (fv e) `remove` xs
 fv (App e1 e2)   = (fv e1) `union` (fv e2)
 fv (Lit n)       = []
 fv (Prim n)      = []
-fv (Let x e1 e2) = fv e1 `union` delete x (fv e2)
 fv (If e1 e2 e3) = fv e1 `union` fv e2 `union` fv e3

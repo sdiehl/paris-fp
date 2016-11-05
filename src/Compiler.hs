@@ -1,58 +1,29 @@
 module Compiler (
-  pipeline,
-  {-bc,-}
-  {-full,-}
+  codegen,
 ) where
 
 import Protolude hiding (local, void)
 
-import Parser
 import Syntax
 import Codegen
-import qualified Infer
-import qualified Pretty
-import qualified Transform
-import qualified JIT
 
 import LLVM.General.AST.Type
 import qualified LLVM.General.AST as AST
 import qualified LLVM.General.AST.Constant as C
 import qualified LLVM.General.AST.IntegerPredicate as IP
 
-import LLVM.General.Pretty (ppllvm)
-
-import Text.Show.Pretty
 import qualified Data.Map as Map
-
-pipeline :: LText -> IO ()
-pipeline expr = do
-  case parseModule "stdin" expr of
-    Left err  -> print err
-    Right ast -> do
-      let tcheck = Infer.inferProgram mempty ast
-      putText "Typechecked"
-      {-putStrLn $ ppShow $ tcheck-}
-
-      let lifted = Transform.lambdaLift ast
-      putStrLn $ Pretty.pprint lifted
-
-      -- Generate LLVM
-      llast <- codegen lifted
-
-      -- Compile LLVM
-      JIT.runJIT llast
-      return ()
 
 initModule :: AST.Module
 initModule = emptyModule "Petit Module"
 
-codegen :: Program -> IO (AST.Module)
+codegen :: Program Name -> IO (AST.Module)
 codegen prog = return (runLLVM initModule (codegenProg prog))
 
-codegenProg :: Program -> LLVM ()
+codegenProg :: Program Name -> LLVM ()
 codegenProg (Program decls) = mapM_ codegenDecl decls
 
-codegenDecl :: Decl -> LLVM ()
+codegenDecl :: Decl Name -> LLVM ()
 codegenDecl (FunDecl fn args body) = do
   let args' = fmap codegenArg args
   define int (toS fn) args' $ do
@@ -67,13 +38,13 @@ codegenDecl (FunDecl fn args body) = do
 codegenArg :: Syntax.Name -> (AST.Type, AST.Name)
 codegenArg nm = (int, AST.Name (toS nm))
 
-viewApp :: Expr -> (Expr, [Expr])
+viewApp :: Expr Name -> (Expr Name, [Expr Name])
 viewApp = go []
   where
     go xs (App a b) = go (b : xs) a
     go xs f = (f, xs)
 
-codegenExpr :: Expr -> Codegen AST.Operand
+codegenExpr :: Expr Name -> Codegen AST.Operand
 codegenExpr = \case
 
   Var x -> do
@@ -108,10 +79,12 @@ codegenExpr = \case
         icmp IP.EQ a b
 
   Lit (LInt x) -> do
-    return $ cons $ C.Int 64 (fromIntegral x)
+    let n = C.Int 64 (fromIntegral x)
+    return $ cons n
 
   Lit (LBool x) -> do
-    return $ cons $ C.Int 1 (bool 0 1 x)
+    let n = C.Int 1 (bool 0 1 x)
+    return (cons n)
   
   If cond tr fl  -> do
     ifthen <- addBlock "if.then"
@@ -143,11 +116,10 @@ codegenExpr = \case
     setBlock ifexit
     phi int [(trval, ifthen), (flval, ifelse)]
 
+  -- Internal failures, shouldn't be possible if transformations are performed.
+
   Lam x1 x2    -> do
     panic "Lambda expression not lifted."
 
   Prim x       -> do
     panic "Prim operation not converted."
-
-  Let x1 x2 x3 -> do
-    panic "Not implemented"
