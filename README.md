@@ -15,3 +15,8 @@ Environnement
 [:fr: Instructions d'installation](INSTALL_FR.md)
 
 [:us: Install directions](INSTALL_US.md)
+
+License
+-------
+
+Public domain.

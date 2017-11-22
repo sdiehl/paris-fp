@@ -2,10 +2,11 @@ resolver: lts-6.10
 packages:
 - '.'
 extra-deps:
-- repline-0.1.4.0
-- protolude-0.1.8
+- repline-0.1.7.0
+- protolude-0.2
 - llvm-general-3.5.1.2
 - llvm-general-pure-3.5.1.0
+- transformers-0.4.3.0
 - z3-4.1.0
 flags: {}
 extra-package-dbs: []
