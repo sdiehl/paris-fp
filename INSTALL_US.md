@@ -32,22 +32,6 @@ $ llvm-config --ldflags
 -L/usr/lib/llvm-3.8/lib  -lpthread -lffi -ltinfo -ldl -lm
 ```
 
-**Z3**
-
-The Z3 theorem prover can be installed via system package manager. On Debian
-variants:
-
-```bash
-$ sudo apt-get install z3 libz3-dev
-```
-
-Verify the install:
-
-```bash
-$ z3 -version
-Z3 version 4.4.1
-```
-
 Mac OSX
 -------
 
@@ -76,21 +60,6 @@ Verify the install:
 ```bash
 $ $(brew --prefix llvm35)/bin/llvm-config-3.5 --ldflags
 -L/usr/local/Cellar/llvm35/3.5.1/lib/llvm-3.5/lib
-```
-
-**Z3**
-
-The Z3 theorem prover can be installed via brew formula:
-
-```bash
-$ brew install z3
-```
-
-Verify the install:
-
-```bash
-$ z3 -version
-Z3 version 4.4.1
 ```
 
 Haskell

@@ -7,7 +7,6 @@ extra-deps:
 - llvm-general-3.5.1.2
 - llvm-general-pure-3.5.1.0
 - transformers-0.4.3.0
-- z3-4.1.0
 flags: {}
 extra-package-dbs: []
 extra-lib-dirs:

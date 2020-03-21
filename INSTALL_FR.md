@@ -32,29 +32,6 @@ $ llvm-config --ldflags
 -L/usr/lib/llvm-3.8/lib  -lpthread -lffi -ltinfo -ldl -lm
 ```
 
-**Z3**
-
-Le démonstrateur Z3 peut être installé via le gestionnaire de paquets du système. Sur Debian
-variantes:
-
-```bash
-$ sudo apt-get install z3 libz3-dev
-```
-
-Le paquet existe sous Ubuntu mais n'est valable que sur l'unstable de Debian.
-
-Vérifier
-
-```bash
-$ z3 -version
-Z3 version 4.4.1
-```
-Il faut également installer libedit.
-
-```bash
-$ sudo apt-get install libedit-dev
-```
-
 Mac OSX
 -------
 
@@ -83,21 +60,6 @@ Vérifier
 ```bash
 $ $(brew --prefix llvm35)/bin/llvm-config-3.5 --ldflags
 -L/usr/local/Cellar/llvm35/3.5.1/lib/llvm-3.5/lib
-```
-
-**Z3**
-
-Le démonstrateur Z3 peut être installé via la brew formule:
-
-```bash
-$ brew install z3
-```
-
-Vérifier
-
-```bash
-$ z3 -version
-Z3 version 4.4.1
 ```
 
 Haskell
